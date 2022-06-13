@@ -1,0 +1,12 @@
+-- Online SQL Editor to Run SQL Online.
+-- Use the editor to create new tables, insert data and all other SQL operations.
+  
+-- SELECT first_name, last_name FROM Customers where country='USA' and age>20;
+-- SELECT * FROM customers order by age desc;
+-- SELECT * FROM customers order by age limit 2;
+-- SELECT sum(RandomID) as 'randomID' FROM Random where status='Shipped';
+-- SELECT max(CustomerID) from Random where Status='Shipped';
+-- SELECT Status,RandomID from Random group by Status,RandomID;
+SELECT * from Customers
+LEFT JOIN Random
+on Customers.customer_id=Random.CustomerID;
