@@ -1,0 +1,8 @@
+create table student
+(
+    id int NOT NULL AUTO_INCREMENT,
+    name varchar(255),
+    class_id int,
+    age int,
+    PRIMARY KEY (id)
+);

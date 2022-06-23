@@ -1,0 +1,129 @@
+mysql> show databases;
++--------------------+
+| Database           |
++--------------------+
+| information_schema |
+| TEST               |
+| mysql              |
+| performance_schema |
+| sys                |
+| vansh              |
++--------------------+
+6 rows in set (0.11 sec)
+
+mysql> use vansh;
+Database changed
+mysql> show tables
+    -> 
+    -> ;
+Empty set (0.00 sec)
+
+mysql> create table student
+    -> (
+    ->     id int NOT NULL AUTO_INCREMENT,
+    ->     name varchar(255),
+    ->     class_id int,
+    ->     age int,
+    ->     PRIMARY KEY (id)
+    -> );
+Query OK, 0 rows affected (1.64 sec)
+
+mysql> show tables;
++-----------------+
+| Tables_in_vansh |
++-----------------+
+| student         |
++-----------------+
+1 row in set (0.00 sec)
+
+mysql> select * from student;
+Empty set (0.00 sec)
+
+mysql> desc student;
++----------+--------------+------+-----+---------+----------------+
+| Field    | Type         | Null | Key | Default | Extra          |
++----------+--------------+------+-----+---------+----------------+
+| id       | int(11)      | NO   | PRI | NULL    | auto_increment |
+| name     | varchar(255) | YES  |     | NULL    |                |
+| class_id | int(11)      | YES  |     | NULL    |                |
+| age      | int(11)      | YES  |     | NULL    |                |
++----------+--------------+------+-----+---------+----------------+
+4 rows in set (0.00 sec)
+
+mysql> insert into student values ((1,"shelly",13,1));
+ERROR 1136 (21S01): Column count doesn't match value count at row 1
+mysql> insert into student values (("shelly",13,1));
+ERROR 1136 (21S01): Column count doesn't match value count at row 1
+mysql> insert into student values("shelly",13,1);
+ERROR 1136 (21S01): Column count doesn't match value count at row 1
+mysql> insert into student(id, name, class_id, age)
+    -> values (111,'shelly',222,18);
+Query OK, 1 row affected (0.06 sec)
+
+mysql> select * from student;
++-----+--------+----------+------+
+| id  | name   | class_id | age  |
++-----+--------+----------+------+
+| 111 | shelly |      222 |   18 |
++-----+--------+----------+------+
+1 row in set (0.00 sec)
+
+mysql> insert into student(name, class_id, age) values ('sanjay',222,18);
+Query OK, 1 row affected (0.50 sec)
+
+mysql> select * from student;
++-----+--------+----------+------+
+| id  | name   | class_id | age  |
++-----+--------+----------+------+
+| 111 | shelly |      222 |   18 |
+| 112 | sanjay |      222 |   18 |
++-----+--------+----------+------+
+2 rows in set (0.00 sec)
+
+mysql> insert into student(id, name, class_id, age) values ('shelly',222,18);
+ERROR 1136 (21S01): Column count doesn't match value count at row 1
+mysql> insert into student(id, name, class_id, age) values (,'shelly',222,18);
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near ''shelly',222,18)' at line 1
+mysql> insert into student(id, name, class_id, age) values (null,'shelly',222,18);
+Query OK, 1 row affected (0.04 sec)
+
+mysql> select * from student;
++-----+--------+----------+------+
+| id  | name   | class_id | age  |
++-----+--------+----------+------+
+| 111 | shelly |      222 |   18 |
+| 112 | sanjay |      222 |   18 |
+| 113 | shelly |      222 |   18 |
++-----+--------+----------+------+
+3 rows in set (0.00 sec)
+
+mysql> insert into student(id, name, class_id, age) values ((null,'shelly',222,18),(null,'vansh',222,1));
+ERROR 1136 (21S01): Column count doesn't match value count at row 1
+mysql> delete from student where id=113;
+Query OK, 1 row affected (0.05 sec)
+
+mysql> select * from student;
++-----+--------+----------+------+
+| id  | name   | class_id | age  |
++-----+--------+----------+------+
+| 111 | shelly |      222 |   18 |
+| 112 | sanjay |      222 |   18 |
++-----+--------+----------+------+
+2 rows in set (0.00 sec)
+
+mysql> update student 
+    -> set age=20
+    -> where id=112;
+Query OK, 1 row affected (0.12 sec)
+Rows matched: 1  Changed: 1  Warnings: 0
+
+mysql> select * from student;
++-----+--------+----------+------+
+| id  | name   | class_id | age  |
++-----+--------+----------+------+
+| 111 | shelly |      222 |   18 |
+| 112 | sanjay |      222 |   20 |
++-----+--------+----------+------+
+2 rows in set (0.00 sec)
+
+mysql> B
